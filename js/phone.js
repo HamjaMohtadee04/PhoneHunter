@@ -47,22 +47,40 @@ phones.forEach(phone=>{
     phoneContainer.appendChild(PhoneCard)
 })
 
+//hide loading spinner; this code written when handling with loading too much after
+ toggleLoadingSpinner(false)
 }
 // handle search button
 const handleSearch =() =>{
+//for toggle
+toggleLoadingSpinner(true)
    const searchField = document.getElementById('search-field')
     const searchText = searchField.value
     // console.log(searchText)
     loadPhone(searchText)
 }
 
+//handle search recap
 const handleSearch2 =()=>{
+    //for toggleloadingspinner call after showing 
+     toggleLoadingSpinner(true)
+
+     //this code should be written before toggleloading spinner
     const searchField2 = document.getElementById('search-field2')
     const searchField2Text = searchField2.value;
     console.log(searchField2Text) 
      loadPhone(searchField2Text)
 }
 
+const toggleLoadingSpinner = (isLoading) =>{
+    const LoadingSpinner = document.getElementById("loadingSpinner")
+   if(isLoading){
+    LoadingSpinner.classList.remove('hidden')
+   }
+   else{
+    LoadingSpinner.classList.add('hidden')
+   }
+}
 
 
 
