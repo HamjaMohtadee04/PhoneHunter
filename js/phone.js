@@ -12,6 +12,19 @@ const phoneContainer = document.getElementById('phone-container')
 //clear phone container cards before adding new cards
 phoneContainer.textContent = '';
 
+//display show all button if there are more than 12 phones
+const showAllContainer = document.getElementById('showallContainer')
+if (phones.length>12){
+    showAllContainer.classList.remove('hidden')
+}
+else{
+    showAllContainer.classList.add('hidden')
+}
+
+//slice those phones because of want to show 10 or 20 (limited elements)by using slice
+phones = phones.slice(0,12)
+
+
 phones.forEach(phone=>{
     console.log(phone)
     //1.create a div
@@ -41,6 +54,13 @@ const handleSearch =() =>{
     const searchText = searchField.value
     // console.log(searchText)
     loadPhone(searchText)
+}
+
+const handleSearch2 =()=>{
+    const searchField2 = document.getElementById('search-field2')
+    const searchField2Text = searchField2.value;
+    console.log(searchField2Text) 
+     loadPhone(searchField2Text)
 }
 
 
