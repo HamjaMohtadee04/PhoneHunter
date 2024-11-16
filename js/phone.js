@@ -1,4 +1,4 @@
-const loadPhone = async(searchText,isShowAll) =>{
+const loadPhone = async(searchText='13',isShowAll) =>{
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`)
  const data = await res.json()
  const phones =data.data
@@ -20,7 +20,7 @@ if (phones.length>12 && !isShowAll){
 else{
     showAllContainer.classList.add('hidden')
 }
-console.log('is show all',isShowAll)
+// console.log('is show all',isShowAll)
 //slice those phones because of want to show 10 or 20 (limited elements)by using slice if not show all
 if (!isShowAll){
     phones = phones.slice(0,12)
@@ -28,7 +28,7 @@ if (!isShowAll){
 
 
 phones.forEach(phone=>{
-    console.log(phone)
+    // console.log(phone)
     //1.create a div
     const PhoneCard = document.createElement('div')
     PhoneCard.classList =`card bg-gray-100 p-4 shadow-xl`
@@ -96,7 +96,30 @@ const handleShowDetails = async(id)=>{
     //load single phone data (individual)
     const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
     const data = await res.json();
-    console.log(data)
+    const phone =data.data; 
+    showPhoneDetails(phone)
 }
 
-// loadPhone()
+// show function detail
+const showPhoneDetails =(phone) =>{
+ console.log(phone)
+
+ const showDetailphoneName = document.getElementById('showDetailphoneName')
+ showDetailphoneName.innerText = phone.name
+
+ const showDetailContainer = document.getElementById('show_detail_container')
+ showDetailContainer.innerHTML =`
+    <img src ="${phone.image}" alt="" />
+    <p><span>Storage:</span>${phone?.mainFeatures?.storage}</p>
+    <p><span>DisplaySize:</span>${phone?.mainFeatures?.displaySize}</p>
+    <p><span>Chipset:</span>${phone?.mainFeatures?.chipSet}</p>
+    <p><span>Slug:</span>${phone?.slug}</p>
+    <p><span>Release Date:</span>${phone?.releaseDate}</p>
+    <p><span>Brand:</span>${phone?.brand}</p>
+    <p><span>GPS:</span>${phone?.others?.GPS}</p>
+ `
+    //show the modal
+    show_detail_modal.showModal()
+}
+
+loadPhone()
