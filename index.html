@@ -22,15 +22,16 @@
 <!-- 
 another search field -->
 
-<input id="search-field2" type="text" placeholder="Search here" class="input input-bordered w-full max-w-xs" />
+<!-- <input id="search-field2" type="text" placeholder="Search here" class="input input-bordered w-full max-w-xs" />
 <button class="btn btn-primary" onclick="handleSearch2()">Search</button>
-</section>
+</section> -->
         
-<!-- spinner -->
+
 
        
 
         <!-- search result -->
+         <!-- spinner -->
          <div id="loadingSpinner" class="text-center my-40 hidden">
             <span class="loading loading-spinner text-primary loading-lg"></span>
          </div>
@@ -38,8 +39,8 @@ another search field -->
             <div id="phone-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             </div>
             <!-- show all button -->
-         <div id="showallContainer" class="hidden">
-            <button onclick="" class="btn btn-accent" >Show all</button>
+         <div id="showallContainer" class="hidden text-center my-5">
+            <button class="btn btn-accent" onclick="handleShowAll()">Show all</button>
          </div>
         </section>
     </main>

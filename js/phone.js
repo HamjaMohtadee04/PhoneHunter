@@ -1,12 +1,12 @@
-const loadPhone = async(searchText) =>{
+const loadPhone = async(searchText,isShowAll) =>{
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`)
  const data = await res.json()
  const phones =data.data
 
- displayPhones(phones)
+ displayPhones(phones,isShowAll)
 }
 
-const displayPhones = phones =>{
+const displayPhones = (phones,isShowAll) =>{
 // console.log(phones)
 const phoneContainer = document.getElementById('phone-container')
 //clear phone container cards before adding new cards
@@ -14,15 +14,17 @@ phoneContainer.textContent = '';
 
 //display show all button if there are more than 12 phones
 const showAllContainer = document.getElementById('showallContainer')
-if (phones.length>12){
+if (phones.length>12 && !isShowAll){
     showAllContainer.classList.remove('hidden')
 }
 else{
     showAllContainer.classList.add('hidden')
 }
-
-//slice those phones because of want to show 10 or 20 (limited elements)by using slice
-phones = phones.slice(0,12)
+console.log('is show all',isShowAll)
+//slice those phones because of want to show 10 or 20 (limited elements)by using slice if not show all
+if (!isShowAll){
+    phones = phones.slice(0,12)
+}
 
 
 phones.forEach(phone=>{
@@ -51,26 +53,26 @@ phones.forEach(phone=>{
  toggleLoadingSpinner(false)
 }
 // handle search button
-const handleSearch =() =>{
+const handleSearch =(isShowAll) =>{
 //for toggle
 toggleLoadingSpinner(true)
    const searchField = document.getElementById('search-field')
     const searchText = searchField.value
     // console.log(searchText)
-    loadPhone(searchText)
+    loadPhone(searchText,isShowAll)
 }
 
 //handle search recap
-const handleSearch2 =()=>{
-    //for toggleloadingspinner call after showing 
-     toggleLoadingSpinner(true)
+// const handleSearch2 =()=>{
+//     //for toggleloadingspinner call after showing 
+//      toggleLoadingSpinner(true)
 
-     //this code should be written before toggleloading spinner
-    const searchField2 = document.getElementById('search-field2')
-    const searchField2Text = searchField2.value;
-    console.log(searchField2Text) 
-     loadPhone(searchField2Text)
-}
+//      //this code should be written before toggleloading spinner
+//     const searchField2 = document.getElementById('search-field2')
+//     const searchField2Text = searchField2.value;
+//     console.log(searchField2Text) 
+//      loadPhone(searchField2Text)
+// }
 
 const toggleLoadingSpinner = (isLoading) =>{
     const LoadingSpinner = document.getElementById("loadingSpinner")
@@ -82,6 +84,11 @@ const toggleLoadingSpinner = (isLoading) =>{
    }
 }
 
+//handle show all
+const handleShowAll =() =>{
+    handleSearch(true)
+
+}
 
 
 // loadPhone()
